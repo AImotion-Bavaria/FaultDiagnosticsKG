@@ -22,7 +22,7 @@ def write_to_results(config, path_results=None):
         path_results: Path to csv. If None is given a new csv is created.
     '''
     path_results = Path(path_results) / 'results_raw.csv'
-    if not (path_results).is_dir():
+    if not (path_results).is_file():
         create_new_results_df(config['path']['model_dir'])
     fault_mapping = config['data'].pop('fault_mapping')
     res_temp = pd.json_normalize(config)
