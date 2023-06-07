@@ -1,0 +1,29 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix bf: <http://bearingfault.org/> .
+
+bf:Normal  bf:p_0 bf:o_0 .
+
+bf:InnerRace rdfs:subClassOf bf:Fault .
+bf:OuterRace rdfs:subClassOf bf:Fault .
+bf:Ball rdfs:subClassOf bf:Fault .
+
+bf:LargeBall rdfs:subClassOf bf:Ball ;
+    rdfs:subClassOf bf:Large .
+bf:MediumBall rdfs:subClassOf bf:Ball ;
+    rdfs:subClassOf bf:Medium .
+bf:SmallBall rdfs:subClassOf bf:Ball ;
+    rdfs:subClassOf bf:Small .
+
+bf:LargeInnerRace rdfs:subClassOf bf:InnerRace ;
+    rdfs:subClassOf bf:Large .
+bf:MediumInnerRace rdfs:subClassOf bf:InnerRace ;
+    rdfs:subClassOf bf:Medium .
+bf:SmallInnerRace rdfs:subClassOf bf:InnerRace ;
+    rdfs:subClassOf bf:Small .
+
+bf:LargeOuterRace rdfs:subClassOf bf:OuterRace ;
+    rdfs:subClassOf bf:Large .
+bf:MediumOuterRace rdfs:subClassOf bf:OuterRace ;
+    rdfs:subClassOf bf:Medium .
+bf:SmallOuterRace rdfs:subClassOf bf:OuterRace ;
+    rdfs:subClassOf bf:Small .

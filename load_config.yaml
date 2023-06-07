@@ -1,0 +1,41 @@
+path:
+  CWRU_DE: /path/to/Data/12k_DE  # adjust accordingly
+  CWRU_FE: /path/to/Data/12k_FE  # adjust accordingly
+  CWRU_Normal: /path/to/Data/Normal  # adjust accordingly
+  model_dir: /path/to/model_dir  # adjust accordingly
+
+data:
+  source_domain: CWRU_DE
+  # source_domain: CWRU_FE
+  sample_rate: 12
+  segment_length: 512
+  target: PositionSize
+  oc_target: 0
+  # oc_target: 1
+  # oc_target: 2
+  # oc_target: 3
+
+seed: 392
+
+training:
+  epochs: 100
+  batch_size: 64
+  optimizer: Adam
+  lr: 0.001  # Default for Adam
+
+model:
+  name: Enc
+  emb_size: 17  # Only applicable for contrastive loss without kg
+  projection_size: 50
+  loss_fn: SupConLoss
+  # loss_fn: TripletMarginLoss
+  # loss_fn: CrossEntropyLoss
+  distance: CosineSimilarity
+  # distance: LpDistance
+  reducer: ThresholdReducer
+  # mining_func: TripletMarginMiner
+  mining_func: None
+
+kg:
+  kg_trainer: True
+  file_name: kg_bearing_fault_hierarchy.ttl

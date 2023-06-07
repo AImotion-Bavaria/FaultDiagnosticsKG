@@ -1,0 +1,9 @@
+matplotlib==3.6.2
+numpy==1.22.4
+pandas==1.4.4
+pytorch_metric_learning==1.7.2
+PyYAML==6.0
+rdflib==6.2.0
+scikit_learn==1.2.1
+scipy==1.10.0
+torch==1.13.1
