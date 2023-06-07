@@ -18,6 +18,7 @@ data:
 seed: 392
 
 training:
+  # epochs: 3
   epochs: 100
   batch_size: 64
   optimizer: Adam

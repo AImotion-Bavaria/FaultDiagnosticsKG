@@ -12,8 +12,7 @@ source_domain_ls = ['CWRU_DE', 'CWRU_FE']
 seed_ls = [12310, 7151, 333, 391, 1839, 992, 19922, 188, 998, 876]
 oc_ls = ['0', '1', '2', '3']
 config['path']['model_dir'] = (
-    '/home/radtke/01_DEV/IncreasingRobustnessKG/00_Validaton/'
-    'oc'
+    Path.cwd() / 'CaseStudy1_DifferentLoad'
 )
 
 models = {

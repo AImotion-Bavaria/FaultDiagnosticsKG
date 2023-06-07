@@ -1,6 +1,4 @@
-import os
 from pathlib import Path
-import platform
 import re
 import logging
 
@@ -36,10 +34,7 @@ def cwru_load(path, dom, sample_rate, segment_length):
     elif dom == 'CWRU_FE':
         measure_type = 'FE_time'
     path = Path(path)
-    if platform.system() == 'Windows':
-        path_data = Path(str(path).rsplit('\\', maxsplit=1)[0])
-    elif platform.system() == 'Linux':
-        path_data = Path(str(path).rsplit('/', maxsplit=1)[0])
+    path_data = path.parent
     df_fault = cwru_to_df(
         path,
         segment_length,
@@ -68,25 +63,22 @@ def cwru_load_raw_data(path, measure_type, force_reload=False):
     Returns:
         data: Dictionary with raw CWRU data
     '''
-    if platform.system() == 'Windows':
-        dom = str(path).rsplit('\\', maxsplit=1)[-1]
-    elif platform.system() == 'Linux':
-        dom = str(path).rsplit('/', maxsplit=1)[-1]
-
+    dom = path.name
     file_name = f'cwru_{dom}_{measure_type}_data.pkl'
-    if os.path.isfile(path / file_name) and not force_reload:
-        # logging.info(f'Load {file_name}.')
+    if (path / file_name).is_file() and not force_reload:
         logging.info('Load %s.', file_name)
         data = utils.load_pickle(path / file_name)
         return data
     logging.info('Load CWRU data from source.')
-    all_files = [f for f in os.listdir(path) if f.endswith('.mat')]
+    all_files = path.glob('*.mat')
     data = {}
     for i in all_files:
-        data[i] = loadmat(path / i)
-        k = [j for j in data[i].keys() if j.endswith(measure_type)][0]
-        data[i] = data[i][k]
-        data[i] = data[i].reshape(data[i].shape[0])
+        name = i.name
+        # data[i] = loadmat(path / i)
+        data[name] = loadmat(i)
+        k = [j for j in data[name].keys() if j.endswith(measure_type)][0]
+        data[name] = data[name][k]
+        data[name] = data[name].reshape(data[i].shape[0])
     utils.save_pickle(data, path / file_name)
     return data
 

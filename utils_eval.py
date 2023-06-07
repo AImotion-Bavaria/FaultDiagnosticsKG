@@ -1,5 +1,4 @@
 from datetime import datetime
-import os
 from pathlib import Path
 import logging
 
@@ -23,7 +22,7 @@ def write_to_results(config, path_results=None):
         path_results: Path to csv. If None is given a new csv is created.
     '''
     path_results = Path(path_results) / 'results_raw.csv'
-    if not os.path.exists(path_results):
+    if not (path_results).is_dir():
         create_new_results_df(config['path']['model_dir'])
     fault_mapping = config['data'].pop('fault_mapping')
     res_temp = pd.json_normalize(config)
@@ -48,18 +47,11 @@ def create_new_results_df(path):
     paths = [path / 'Embedding',
              path / 'DirectClassification']
     for model_type in paths:
-        if os.path.exists(model_type):
-            for mod in os.listdir(model_type):
-                cl_f = model_type / mod / 'config_loss.yaml'
-                with open(cl_f, encoding='utf8') as stream:
+        if model_type.is_dir():
+            for conf_l in model_type.glob('*/config_loss.yaml'):
+                with open(conf_l, encoding='utf8') as stream:
                     config = yaml.safe_load(stream)
                 fault_mapping = config['data'].pop('fault_mapping')
-                cl_t = model_type / mod / 'DomainTransfer_FE_time' / \
-                    'config_transfer.yaml'
-                if os.path.exists(cl_t):
-                    with open(cl_t, encoding='utf8') as stream:
-                        config_transfer = yaml.safe_load(stream)
-                    config['transfer'] = config_transfer
                 res_temp = pd.json_normalize(config)
                 res_temp['fault_mapping'] = [fault_mapping]
                 res = pd.concat([res, res_temp], axis=0).reset_index(drop=True)

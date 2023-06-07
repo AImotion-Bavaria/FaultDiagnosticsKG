@@ -1,4 +1,3 @@
-import os
 import logging
 import yaml
 from sklearn.model_selection import train_test_split
@@ -14,8 +13,8 @@ from bearing_transfer import bearing_transfer
 
 
 def main(
-        config=None, plots=True, save_model=True, save_loss=True, verbose=True
-    ):
+    config=None, plots=True, save_model=True, save_loss=True, verbose=True
+):
     '''
     Run complete training and evaluation pipeline for bearing
     domain shift.
@@ -210,10 +209,10 @@ def main(
 
     if not save_model:
         # Remove everything except yaml result files
-        if os.path.isfile(path / 'model.pt'):
-            os.remove(path / 'model.pt')
-        if os.path.isfile(path / 'clf.pt'):
-            os.remove(path / 'clf.pt')
+        if (path / 'model.pt').is_file():
+            (path / 'model.pt').unlink()
+        if (path / 'clf.pt').is_file():
+            (path / 'clf.pt').unlink()
 
 
 if __name__ == '__main__':
