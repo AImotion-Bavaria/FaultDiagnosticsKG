@@ -1,6 +1,6 @@
 # Increasing Robustness of Data-Driven Fault Diagnostics with Knowledge Graphs
 
-This code repository includes the code for the paper *Increasing Robustness of Data-Driven Fault Diagnostics with Knowledge Graphs*. Abstract:
+This code repository includes the code for the paper [Increasing Robustness of Data-Driven Fault Diagnostics with Knowledge Graphs](https://papers.phmsociety.org/index.php/phmconf/article/view/3552). Abstract:
 
 > In the realm of Prognostics and Health Management (PHM), it is common to possess not only process data but also domain knowledge, which, if integrated into data-driven algorithms, can aid in solving specific tasks.
 This paper explores the integration of Knowledge Graphs (KGs) into deep learning models to develop a more resilient approach capable of handling domain shifts, such as variations in machine operation conditions.
